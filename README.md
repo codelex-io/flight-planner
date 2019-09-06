@@ -8,6 +8,7 @@ Your goal is to create an application which can store flights between different 
 
 - Download dependencies: `npm install`
 - Execute tests (your app must be running locally on port `8080`): `npm test`
+- Generate demo data: `npm run demo`
 
 ## Assignments
 

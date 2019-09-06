@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "demo": "ts-node ./src/demo-data/run.ts",
     "test": "jest --env=node --colors test --verbose=true",
     "prettier": "prettier --write './{src,test}/**/*.ts'"
   },
@@ -11,11 +12,15 @@
   "license": "ISC",
   "dependencies": {
     "@types/axios": "^0.14.0",
+    "@types/csvtojson": "^1.1.5",
     "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.138",
     "@types/moment": "^2.13.0",
     "axios": "^0.19.0",
+    "csvtojson": "^2.0.10",
     "jest": "^24.9.0",
     "jest-serial-runner": "^1.1.0",
+    "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "prettier": "1.18.2",
     "ts-jest": "^24.0.2",

@@ -56,7 +56,7 @@ describe("Adding Flights", () => {
 
     try {
       await AdminFlightApi.addFlight(request);
-      done.fail()
+      done.fail();
     } catch (e) {
       expect(e.response.status).toBe(409);
     }
