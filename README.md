@@ -50,9 +50,11 @@ Then follow **all** the steps mentioned in [codelex-io/example-spring-project](h
 
 <details><summary>Java</summary>
 <p>
-- [Building a RESTful Web Service @spring.io](http://spring.io/guides/gs/rest-service)
-- [Building Java Projects with Gradle @spring.io](http://spring.io/guides/gs/gradle/)
-- [Spring Security Basic Authentication @baeldung.com](https://www.baeldung.com/spring-security-basic-authentication)
+
+ - [Building a RESTful Web Service @spring.io](http://spring.io/guides/gs/rest-service)
+ - [Building Java Projects with Gradle @spring.io](http://spring.io/guides/gs/gradle/)
+ - [Spring Security Basic Authentication @baeldung.com](https://www.baeldung.com/spring-security-basic-authentication)
+
 </p>
 </details>
 
@@ -73,6 +75,7 @@ Then follow **all** the steps mentioned in [codelex-io/example-spring-project](h
 
 <details><summary>Java</summary>
 <p>
+
  - [Accessing Data with JPA Service @spring.io](https://spring.io/guides/gs/accessing-data-jpa/)
  - [The persistence layer with spring data JPA @baeldung.com](https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa)
  - [Database initialization @docs.spring.io](https://docs.spring.io/spring-boot/docs/current/reference/html/howto-database-initialization.html)
