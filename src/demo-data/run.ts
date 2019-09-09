@@ -1,7 +1,8 @@
-import { generateAddFlightRequests } from "./generator";
+import { generateAddFlightRequests, init } from "./generator";
 import { AdminFlightApi } from "../AdminFlightApi";
 
-generateAddFlightRequests(1000)
+init()
+  .then(() => generateAddFlightRequests(1000))
   .then(requests => Promise.all(requests.map(AdminFlightApi.addFlight)))
   .then(() => {
     console.log("Done");

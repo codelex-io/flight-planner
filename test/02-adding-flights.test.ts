@@ -4,7 +4,7 @@ import { AddFlightRequest, Airport } from "../src/api";
 import { RIX, ARN, RYANAIR, DXB, baseDateTime } from "./fixture";
 
 describe("Adding Flights", () => {
-  beforeEach(() => TestApi.clearFlights());
+  beforeEach(() => TestApi.clear());
 
   const request = new AddFlightRequest(
     RIX,

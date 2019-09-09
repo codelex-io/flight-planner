@@ -7,11 +7,13 @@ import { Airport, AddFlightRequest } from "../api";
 const AIRLINES_CSV = path.resolve(__dirname + "/airlines.csv");
 const AIRPORTS_CSV = path.resolve(__dirname + "/airports.csv");
 
+let airlines: string[]
+let airports: Airport[]
+
 const readAirlines = async (): Promise<string[]> => {
   const tranform = (lines: any[]) => {
     return lines.map(it => it.description).filter(it => it);
   };
-
   return csv()
     .fromFile(AIRLINES_CSV)
     .then(tranform);
@@ -29,10 +31,12 @@ const readAirports = async (): Promise<Airport[]> => {
     .then(tranform);
 };
 
-const randomAddFlightRequest = (
-  airports: Airport[],
-  airlines: string[]
-): AddFlightRequest => {
+export const init = async () => {
+  await readAirlines().then(it => airlines = it)
+  await readAirports().then(it => airports = it)
+}
+
+export const randomAddFlightRequest = (): AddFlightRequest => {
   const departureDate = moment()
     .year(2019 + _.random(0, 10))
     .month(1 + _.random(0, 11))
@@ -63,11 +67,5 @@ const randomAddFlightRequest = (
 export const generateAddFlightRequests = async (
   n: number
 ): Promise<AddFlightRequest[]> => {
-  let airlines: string[];
-  let airports: Airport[];
-  await Promise.all([
-    readAirlines().then(it => (airlines = it)),
-    readAirports().then(it => (airports = it))
-  ]);
-  return _.range(n).map(it => randomAddFlightRequest(airports, airlines));
+  return _.range(n).map(it => randomAddFlightRequest());
 };

@@ -13,3 +13,7 @@ export const adminClient = axios.create({
 export const testingClient = axios.create({
   baseURL: "http://localhost:8080/testing-api/"
 });
+
+export const customerClient = axios.create({
+  baseURL: "http://localhost:8080/api/"
+});
