@@ -9,7 +9,7 @@ describe("Admin Auth", () => {
     };
 
     try {
-      await adminClient.get(`/admin-api/flights/123`, { auth: wrongAuth });
+      await adminClient.get(`/flights/123`, { auth: wrongAuth });
     } catch (e) {
       expect(e.response.status).toBe(401);
       done();
