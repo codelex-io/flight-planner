@@ -14,7 +14,7 @@ describe("Adding Flights", () => {
     moment(baseDateTime).add(1, "day")
   );
 
-  it("should be able to add flights", async done => {
+  it("should be able to add flights", async (done) => {
     const response = await AdminFlightApi.addFlight(request);
 
     expect(response.status).toBe(201);
@@ -31,7 +31,7 @@ describe("Adding Flights", () => {
     done();
   });
 
-  it("should return different ids for each flight", async done => {
+  it("should return different ids for each flight", async (done) => {
     const firstFlight = (await AdminFlightApi.addFlight(request)).data;
 
     const secondRequest = new AddFlightRequest(
@@ -49,7 +49,8 @@ describe("Adding Flights", () => {
     done();
   });
 
-  it("should not be able to add same flight twice", async done => {
+  it("should not be able to add same flight twice", async (done) => {
+    console.log(request);
     const response = await AdminFlightApi.addFlight(request);
 
     expect(response.status).toBe(201);
@@ -63,82 +64,82 @@ describe("Adding Flights", () => {
     done();
   });
 
-  it("should not accept wrong values", async done => {
+  it("should not accept wrong values", async (done) => {
     const requests = [
       {
         from: null,
         to: null,
         carrier: null,
         departureTime: null,
-        arrivalTime: null
+        arrivalTime: null,
       },
       {
         from: RIX,
         to: null,
         carrier: RYANAIR,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: RIX,
         to: DXB,
         carrier: null,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: RIX,
         to: DXB,
         carrier: RYANAIR,
         departureTime: null,
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: RIX,
         to: DXB,
         carrier: RYANAIR,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: null
+        arrivalTime: null,
       },
       {
         from: RIX,
         to: DXB,
         carrier: "",
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: { country: null, city: null, airport: null },
         to: DXB,
         carrier: RYANAIR,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: RIX,
         to: { country: null, city: null, airport: null },
         carrier: RYANAIR,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: { country: "", city: "", airport: "" },
         to: DXB,
         carrier: RYANAIR,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
       },
       {
         from: RIX,
         to: { country: "", city: "", airport: "" },
         carrier: RYANAIR,
         departureTime: formatDateTime(baseDateTime),
-        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day"))
-      }
+        arrivalTime: formatDateTime(moment(baseDateTime).add(1, "day")),
+      },
     ];
 
     await Promise.all(
-      requests.map(async it => {
+      requests.map(async (it) => {
         try {
           await AdminFlightApi.addFlight(it as any);
           done.fail(`No error was thrown when adding ${JSON.stringify(it)}`);
@@ -151,7 +152,7 @@ describe("Adding Flights", () => {
     done();
   });
 
-  it("should fail on the same airports", async done => {
+  it("should fail on the same airports", async (done) => {
     const requests = [
       new AddFlightRequest(
         DXB,
@@ -173,11 +174,11 @@ describe("Adding Flights", () => {
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
-      )
+      ),
     ];
 
     await Promise.all(
-      requests.map(async it => {
+      requests.map(async (it) => {
         try {
           await AdminFlightApi.addFlight(it);
           done.fail(`No error was thrown when adding ${JSON.stringify(it)}`);
@@ -190,7 +191,7 @@ describe("Adding Flights", () => {
     done();
   });
 
-  it("should fail on strange dates", async done => {
+  it("should fail on strange dates", async (done) => {
     const requests = [
       new AddFlightRequest(
         RIX,
@@ -205,11 +206,11 @@ describe("Adding Flights", () => {
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime)
-      )
+      ),
     ];
 
     await Promise.all(
-      requests.map(async it => {
+      requests.map(async (it) => {
         try {
           await AdminFlightApi.addFlight(it);
           done.fail(`No error was thrown when adding ${JSON.stringify(it)}`);

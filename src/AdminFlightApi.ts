@@ -6,7 +6,7 @@ export class AdminFlightApi {
   static async addFlight(
     req: AddFlightRequest
   ): Promise<AxiosResponse<Flight>> {
-    return adminClient.put("/flights", req);
+    return adminClient.post("/flights", req);
   }
 
   static async fetchFlight(id: number): Promise<AxiosResponse<Flight>> {

@@ -8,14 +8,16 @@ export const ARN = new Airport("Sweden", "Stockholm", "ARN");
 
 export const RYANAIR = "Ryanair";
 export const TURKISH_AIRLINES = "Turkish Airlines";
-
-export const baseDateTime = moment("2019-01-01 00:00");
-export const baseDate = moment("2019-01-01");
+const today = new Date();
+export const baseDate = moment(
+  `${today.getFullYear}-${today.getMonth()}-${today.getDate()}`
+);
+export const baseDateTime = moment(`${baseDate} 00:00`);
 
 export const FROM_RIGA_TO_STOCKHOLM = new AddFlightRequest(
-    RIX,
-    ARN,
-    RYANAIR,
-    baseDateTime,
-    moment(baseDateTime).add(3, "hours")
-)
+  RIX,
+  ARN,
+  RYANAIR,
+  baseDateTime,
+  moment(baseDateTime).add(3, "hours")
+);
