@@ -14,7 +14,9 @@
     "test-03": "npm run test-pattern 03-*",
     "test-04": "npm run test-pattern 04-*",
     "test-05": "npm run test-pattern 05-*",
-    "test-06": "npm run test-pattern 06-*"
+    "test-06": "npm run test-pattern 06-*",
+    "test-07": "npm run test-pattern 07-*",
+    "test-08": "npm run test-pattern 08-*"
   },
   "author": "",
   "license": "ISC",

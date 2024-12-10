@@ -1,14 +1,14 @@
 import moment from "moment";
 import { AdminFlightApi, TestApi, formatDateTime } from "../src";
-import { AddFlightRequest, Airport } from "../src/api";
+import { AddFlightRequest } from "../src/api";
 import { RIX, ARN, RYANAIR, DXB, baseDateTime } from "./fixture";
 
 describe("Adding Flights", () => {
   beforeEach(() => TestApi.clear());
 
   const request = new AddFlightRequest(
-    RIX,
-    ARN,
+    RIX.airport,
+    ARN.airport,
     RYANAIR,
     baseDateTime,
     moment(baseDateTime).add(1, "day")
@@ -35,8 +35,8 @@ describe("Adding Flights", () => {
     const firstFlight = (await AdminFlightApi.addFlight(request)).data;
 
     const secondRequest = new AddFlightRequest(
-      RIX,
-      ARN,
+      RIX.airport,
+      ARN.airport,
       RYANAIR,
       moment(baseDateTime).add(1, "day"),
       moment(baseDateTime).add(2, "day")
@@ -155,22 +155,22 @@ describe("Adding Flights", () => {
   it("should fail on the same airports", async (done) => {
     const requests = [
       new AddFlightRequest(
-        DXB,
-        DXB,
+        DXB.airport,
+        DXB.airport,
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
       ),
       new AddFlightRequest(
-        DXB,
-        new Airport("united arab emirates", "dubai", "dxb"),
+        DXB.airport,
+        "dxb",
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
       ),
       new AddFlightRequest(
-        DXB,
-        new Airport("United Arab Emirates", "Dubai", "DXB "),
+        DXB.airport,
+        "DXB ",
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
@@ -194,15 +194,15 @@ describe("Adding Flights", () => {
   it("should fail on strange dates", async (done) => {
     const requests = [
       new AddFlightRequest(
-        RIX,
-        DXB,
+        RIX.airport,
+        DXB.airport,
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).subtract(100, "days")
       ),
       new AddFlightRequest(
-        RIX,
-        DXB,
+        RIX.airport,
+        DXB.airport,
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime)

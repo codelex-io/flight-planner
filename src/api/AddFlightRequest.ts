@@ -1,17 +1,16 @@
-import { Airport } from "./Airport";
 import { Moment } from "moment";
 import { formatDateTime } from "../formatting";
 
 export class AddFlightRequest {
-  from: Airport;
-  to: Airport;
+  from: string;
+  to: string;
   carrier: string;
   departureTime: string;
   arrivalTime: string;
 
   constructor(
-    from: Airport,
-    to: Airport,
+    from: string,
+    to: string,
     carrier: string,
     departureTime: Moment,
     arrivalTime: Moment

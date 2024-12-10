@@ -6,10 +6,10 @@ import { RIX, ARN, RYANAIR, baseDateTime } from "./fixture";
 describe("Delete Flights", () => {
   beforeEach(() => TestApi.clear());
 
-  it("should be able to delete flight", async done => {
+  it("should be able to delete flight", async (done) => {
     const request = new AddFlightRequest(
-      RIX,
-      ARN,
+      RIX.airport,
+      ARN.airport,
       RYANAIR,
       baseDateTime,
       moment(baseDateTime).add(1, "day")
@@ -30,8 +30,8 @@ describe("Delete Flights", () => {
     done();
   });
 
-  it("should not fail on missing flight", async done => {
-    const response = await AdminFlightApi.deleteFlight(666);
+  it("should not fail on missing flight", async (done) => {
+    const response = await AdminFlightApi.deleteFlight("666");
     expect(response.status).toBe(200);
 
     done();
