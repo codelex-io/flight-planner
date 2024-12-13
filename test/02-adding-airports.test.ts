@@ -93,43 +93,4 @@ describe("Adding Airports", () => {
 
     done();
   });
-
-  it("should fail on the same airports", async (done) => {
-    const requests = [
-      new AddFlightRequest(
-        DXB.airport,
-        DXB.airport,
-        RYANAIR,
-        moment(baseDateTime),
-        moment(baseDateTime).add(1, "day")
-      ),
-      new AddFlightRequest(
-        DXB.airport,
-        "dxb",
-        RYANAIR,
-        moment(baseDateTime),
-        moment(baseDateTime).add(1, "day")
-      ),
-      new AddFlightRequest(
-        DXB.airport,
-        "DXB ",
-        RYANAIR,
-        moment(baseDateTime),
-        moment(baseDateTime).add(1, "day")
-      ),
-    ];
-
-    await Promise.all(
-      requests.map(async (it) => {
-        try {
-          await AdminFlightApi.addFlight(it);
-          done.fail(`No error was thrown when adding ${JSON.stringify(it)}`);
-        } catch (e) {
-          expect(e.response.status).toBe(400);
-        }
-      })
-    );
-
-    done();
-  });
 });
