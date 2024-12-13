@@ -1,7 +1,5 @@
-import moment from "moment";
 import { CustomerFlightApi, TestApi, AdminFlightApi } from "../src";
-import { AddFlightRequest } from "../src/api";
-import { RIX, ARN, RYANAIR, baseDateTime, DXB, DME } from "./fixture";
+import { RIX, ARN, DXB, DME } from "./fixture";
 
 describe("Airport Typeahead", () => {
   beforeEach(() => TestApi.clear());
