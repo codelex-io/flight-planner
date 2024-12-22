@@ -83,6 +83,6 @@ export const generateAddAirportRequests = async (
   return _.range(n).map((it) => randomAddAirportRequest());
 };
 
-export const getAllAirportRequests = async (): Promise<AddAirportRequest[]> => {
+export const getAllAirportRequests = (): AddAirportRequest[] => {
   return airports;
 };

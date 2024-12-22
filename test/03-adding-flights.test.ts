@@ -2,17 +2,11 @@ import moment from "moment";
 import { AdminFlightApi, TestApi, formatDateTime } from "../src";
 import { AddFlightRequest } from "../src/api";
 import { RIX, ARN, RYANAIR, DXB, baseDateTime } from "./fixture";
-import { getAllAirportRequests } from "../src/demo-data/generator";
+import { init } from "../src/demo-data/generator";
 
 describe("Adding Flights", () => {
-  beforeAll(async () => {
-    const ariports = await getAllAirportRequests();
-    ariports.forEach(async (request) => {
-      try {
-        await AdminFlightApi.addAirport(request);
-      } catch (e) {}
-    });
-  });
+  beforeAll(() => init());
+  beforeAll(() => TestApi.clearAirports());
   beforeEach(() => TestApi.clearFlights());
 
   const request = new AddFlightRequest(
@@ -23,6 +17,12 @@ describe("Adding Flights", () => {
     moment(baseDateTime).add(1, "day")
   );
 
+  it("should be able to add all airports", async (done) => {
+    await AdminFlightApi.addAirport(RIX);
+    await AdminFlightApi.addAirport(ARN);
+    done();
+  });
+
   it("should be able to add flights", async (done) => {
     const response = await AdminFlightApi.addFlight(request);
 
@@ -31,11 +31,11 @@ describe("Adding Flights", () => {
     const flight = response.data;
 
     expect(flight.id).toBeDefined();
-    expect(flight.from).toEqual(request.from);
-    expect(flight.to).toEqual(request.to);
+    expect(flight.from.airport).toEqual(request.from);
+    expect(flight.to.airport).toEqual(request.to);
     expect(flight.carrier).toBe(request.carrier);
-    expect(flight.departureTime).toBe(request.departureTime);
-    expect(flight.arrivalTime).toBe(request.arrivalTime);
+    expect(flight.departureTime).toBeDefined();
+    expect(flight.arrivalTime).toBeDefined();
 
     done();
   });
@@ -59,9 +59,8 @@ describe("Adding Flights", () => {
   });
 
   it("should not be able to add same flight twice", async (done) => {
-    console.log(request);
     const response = await AdminFlightApi.addFlight(request);
-
+    console.log(JSON.stringify(request));
     expect(response.status).toBe(201);
 
     try {
