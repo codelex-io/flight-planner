@@ -2,9 +2,18 @@ import moment from "moment";
 import { AdminFlightApi, TestApi, formatDateTime } from "../src";
 import { AddFlightRequest } from "../src/api";
 import { RIX, ARN, RYANAIR, DXB, baseDateTime } from "./fixture";
+import { getAllAirportRequests } from "../src/demo-data/generator";
 
 describe("Adding Flights", () => {
-  beforeEach(() => TestApi.clear());
+  beforeAll(async () => {
+    const ariports = await getAllAirportRequests();
+    ariports.forEach(async (request) => {
+      try {
+        await AdminFlightApi.addAirport(request);
+      } catch (e) {}
+    });
+  });
+  beforeEach(() => TestApi.clearFlights());
 
   const request = new AddFlightRequest(
     RIX.airport,

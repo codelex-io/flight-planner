@@ -1,11 +1,9 @@
-import moment from "moment";
 import { AdminFlightApi, TestApi } from "../src";
-import { AddFlightRequest } from "../src/api";
-import { RIX, ARN, RYANAIR, baseDateTime } from "./fixture";
+import { RIX } from "./fixture";
 import { AddAirportRequest } from "../src/api/AddAirportRequest";
 
 describe("Delete Flights", () => {
-  beforeEach(() => TestApi.clear());
+  beforeEach(() => TestApi.clearAirports());
 
   it("should be able to delete flight", async (done) => {
     const request = new AddAirportRequest(RIX.country, RIX.city, RIX.airport);

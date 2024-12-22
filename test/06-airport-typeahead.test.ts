@@ -2,7 +2,7 @@ import { CustomerFlightApi, TestApi, AdminFlightApi } from "../src";
 import { RIX, ARN, DXB, DME } from "./fixture";
 
 describe("Airport Typeahead", () => {
-  beforeEach(() => TestApi.clear());
+  beforeEach(() => TestApi.clearAirports());
 
   it("should search by incomplete phrases", async (done) => {
     const phrases = [

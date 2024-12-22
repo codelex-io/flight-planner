@@ -3,7 +3,7 @@ import { SearchFlightsRequest, PageResult, Flight } from "../src/api";
 import { ARN, baseDate, DXB, FROM_RIGA_TO_STOCKHOLM, RIX } from "./fixture";
 
 describe("Finding Flights", () => {
-  beforeEach(() => TestApi.clear());
+  beforeEach(() => TestApi.clearFlights());
 
   it("should return no results when nothing found", async (done) => {
     const request = new SearchFlightsRequest(

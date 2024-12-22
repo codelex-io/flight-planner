@@ -7,7 +7,7 @@ import { SearchFlightsRequest } from "../src/api";
 describe("Concurrency Handling", () => {
   beforeAll(() => init());
 
-  beforeEach(() => TestApi.clear());
+  beforeEach(() => TestApi.clearFlights());
 
   it("should handle concurrent adding & deleting", async (done) => {
     await Promise.all(

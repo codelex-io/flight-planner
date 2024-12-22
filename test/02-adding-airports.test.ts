@@ -1,11 +1,9 @@
-import moment from "moment";
-import { AdminFlightApi, TestApi, formatDateTime } from "../src";
-import { AddFlightRequest } from "../src/api";
-import { RIX, RYANAIR, DXB, baseDateTime, ARN } from "./fixture";
+import { AdminFlightApi, TestApi } from "../src";
+import { RIX, ARN } from "./fixture";
 import { AddAirportRequest } from "../src/api/AddAirportRequest";
 
 describe("Adding Airports", () => {
-  beforeEach(() => TestApi.clear());
+  beforeEach(() => TestApi.clearAirports());
 
   const request = new AddAirportRequest(RIX.country, RIX.city, RIX.airport);
 

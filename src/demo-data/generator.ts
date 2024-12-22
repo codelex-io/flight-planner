@@ -2,13 +2,14 @@ import csv from "csvtojson";
 import _ from "lodash";
 import moment from "moment";
 import path from "path";
-import { Airport, AddFlightRequest } from "../api";
+import { AddFlightRequest } from "../api";
+import { AddAirportRequest } from "../api/AddAirportRequest";
 
 const AIRLINES_CSV = path.resolve(__dirname + "/airlines.csv");
 const AIRPORTS_CSV = path.resolve(__dirname + "/airports.csv");
 
 let airlines: string[];
-let airports: Airport[];
+let airports: AddAirportRequest[];
 
 const readAirlines = async (): Promise<string[]> => {
   const tranform = (lines: any[]) => {
@@ -19,10 +20,12 @@ const readAirlines = async (): Promise<string[]> => {
     .then(tranform);
 };
 
-const readAirports = async (): Promise<Airport[]> => {
+const readAirports = async (): Promise<AddAirportRequest[]> => {
   const tranform = (lines: any[]) => {
     return lines
-      .map((it) => new Airport(it.iso_country, it.municipality, it.ident))
+      .map(
+        (it) => new AddAirportRequest(it.iso_country, it.municipality, it.ident)
+      )
       .filter((it) => it.country && it.city && it.airport)
       .filter((it) => it.airport !== "0");
   };
@@ -56,16 +59,30 @@ export const randomAddFlightRequest = (): AddFlightRequest => {
   }
 
   return new AddFlightRequest(
-    from,
-    to,
+    from.airport,
+    to.airport,
     airlines[_.random(0, airlines.length)],
     departureDate,
     arrivalDate
   );
 };
 
+export const randomAddAirportRequest = (): AddAirportRequest => {
+  return airports[_.random(0, airports.length)];
+};
+
 export const generateAddFlightRequests = async (
   n: number
 ): Promise<AddFlightRequest[]> => {
   return _.range(n).map((it) => randomAddFlightRequest());
+};
+
+export const generateAddAirportRequests = async (
+  n: number
+): Promise<AddAirportRequest[]> => {
+  return _.range(n).map((it) => randomAddAirportRequest());
+};
+
+export const getAllAirportRequests = async (): Promise<AddAirportRequest[]> => {
+  return airports;
 };
