@@ -1,8 +1,10 @@
-import moment from "moment";
 import _ from "lodash";
 import { TestApi, AdminFlightApi, CustomerFlightApi } from "../src";
-import { randomAddFlightRequest, init } from "../src/demo-data/generator";
-import { SearchFlightsRequest } from "../src/api";
+import {
+  randomAddFlightRequest,
+  init,
+  randomAddAirportRequest,
+} from "../src/demo-data/generator";
 
 describe("Concurrency Handling", () => {
   beforeAll(() => init());
@@ -24,27 +26,20 @@ describe("Concurrency Handling", () => {
   }, 60000);
 
   it("should not be able to add the same flight twice", async (done) => {
-    const request = randomAddFlightRequest();
+    const request = randomAddAirportRequest();
 
     await Promise.all(
       _.range(0, 100).map(async () => {
         try {
-          await AdminFlightApi.addFlight(request);
+          await AdminFlightApi.addAirport(request);
         } catch (ignored) {}
       })
     );
 
-    const response = await CustomerFlightApi.searchFlights(
-      new SearchFlightsRequest(
-        request.from,
-        request.to,
-        moment(request.departureTime),
-        1
-      )
-    );
+    const response = await CustomerFlightApi.searchAirports(request.airport);
 
-    expect(response.data.totalItems).toBe(1);
-    expect(response.data.page).toBe(1);
+    expect(response.data.length).toBe(1);
+    expect(response.data[1]).toBe(request);
 
     done();
   }, 60000);

@@ -8,8 +8,8 @@ describe("Delete Flights", () => {
 
   it("should be able to delete flight", async (done) => {
     const request = new AddFlightRequest(
-      RIX.airport,
-      ARN.airport,
+      RIX,
+      ARN,
       RYANAIR,
       baseDateTime,
       moment(baseDateTime).add(1, "day")

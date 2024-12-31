@@ -59,8 +59,8 @@ export const randomAddFlightRequest = (): AddFlightRequest => {
   }
 
   return new AddFlightRequest(
-    from.airport,
-    to.airport,
+    from,
+    to,
     airlines[_.random(0, airlines.length)],
     departureDate,
     arrivalDate

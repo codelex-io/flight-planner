@@ -10,8 +10,8 @@ describe("Adding Flights", () => {
   beforeEach(() => TestApi.clearFlights());
 
   const request = new AddFlightRequest(
-    RIX.airport,
-    ARN.airport,
+    RIX,
+    ARN,
     RYANAIR,
     baseDateTime,
     moment(baseDateTime).add(1, "day")
@@ -31,8 +31,8 @@ describe("Adding Flights", () => {
     const flight = response.data;
 
     expect(flight.id).toBeDefined();
-    expect(flight.from.airport).toEqual(request.from);
-    expect(flight.to.airport).toEqual(request.to);
+    expect(flight.from.airport).toEqual(request.from.airport);
+    expect(flight.to.airport).toEqual(request.to.airport);
     expect(flight.carrier).toBe(request.carrier);
     expect(flight.departureTime).toBeDefined();
     expect(flight.arrivalTime).toBeDefined();
@@ -44,8 +44,8 @@ describe("Adding Flights", () => {
     const firstFlight = (await AdminFlightApi.addFlight(request)).data;
 
     const secondRequest = new AddFlightRequest(
-      RIX.airport,
-      ARN.airport,
+      RIX,
+      ARN,
       RYANAIR,
       moment(baseDateTime).add(1, "day"),
       moment(baseDateTime).add(2, "day")
@@ -163,22 +163,30 @@ describe("Adding Flights", () => {
   it("should fail on the same airports", async (done) => {
     const requests = [
       new AddFlightRequest(
-        DXB.airport,
-        DXB.airport,
+        DXB,
+        DXB,
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
       ),
       new AddFlightRequest(
-        DXB.airport,
-        "dxb",
+        DXB,
+        {
+          airport: "dxb",
+          city: DXB.city,
+          country: DXB.country,
+        },
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
       ),
       new AddFlightRequest(
-        DXB.airport,
-        "DXB ",
+        DXB,
+        {
+          airport: "DXB ",
+          city: DXB.city,
+          country: DXB.country,
+        },
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).add(1, "day")
@@ -202,15 +210,15 @@ describe("Adding Flights", () => {
   it("should fail on strange dates", async (done) => {
     const requests = [
       new AddFlightRequest(
-        RIX.airport,
-        DXB.airport,
+        RIX,
+        DXB,
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime).subtract(100, "days")
       ),
       new AddFlightRequest(
-        RIX.airport,
-        DXB.airport,
+        RIX,
+        DXB,
         RYANAIR,
         moment(baseDateTime),
         moment(baseDateTime)

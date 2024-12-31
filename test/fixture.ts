@@ -25,8 +25,8 @@ export const baseDateTime = moment(
 );
 
 export const FROM_RIGA_TO_STOCKHOLM = new AddFlightRequest(
-  RIX.airport,
-  ARN.airport,
+  RIX,
+  ARN,
   RYANAIR,
   baseDateTime,
   moment(baseDateTime).add(3, "hours")
