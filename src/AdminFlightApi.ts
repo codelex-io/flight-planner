@@ -31,9 +31,10 @@ export class AdminFlightApi {
   }
 
   static async updateAirport(
+    id: string,
     req: AddAirportRequest
   ): Promise<AxiosResponse<Airport>> {
-    return adminClient.put("/airports", req);
+    return adminClient.put(`/airports/${id}`, req);
   }
 
   static async fetchAirport(id: string): Promise<AxiosResponse<Airport>> {
