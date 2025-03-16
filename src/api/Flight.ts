@@ -1,7 +1,7 @@
 import { Airport } from "./Airport";
 
 export interface Flight {
-  id: number;
+  id: string;
   from: Airport;
   to: Airport;
   carrier: string;
